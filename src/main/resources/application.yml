@@ -1,2 +1,14 @@
 server:
   port: 8050
+
+spring:
+  # 关闭原数据源配置，改用shardingsphere.datasource
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  shardingsphere:
+    datasource:
+      names: db0,db1
+      db0:
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/twelvet-fast?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+        username: root
+        password: 123456

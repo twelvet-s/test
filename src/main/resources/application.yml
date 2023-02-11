@@ -2,13 +2,89 @@ server:
   port: 8050
 
 spring:
-  # 关闭原数据源配置，改用shardingsphere.datasource
-  autoconfigure:
-    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   shardingsphere:
+    # 单机模式
+    mode:
+      type: Standalone
+    props:
+      sql-show: true
     datasource:
-      names: db0,db1
-      db0:
-        jdbc-url: jdbc:mysql://127.0.0.1:3306/twelvet-fast?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+      names: ds0,ds1
+      ds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name=com: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/twelvet-fast?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
         username: root
         password: 123456
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name=com: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/twelvet-fast?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+        username: root
+        password: 123456
+    rules:
+      sharding:
+        tables:
+          # 配置表分片
+          sys_login_info:
+            # 数据节点：数据源$->{0..N}.逻辑表名$->{0..N}
+            actual-data-nodes: ds0.sys_login_info_$->{0..1}
+            # 拆分库策略，也就是什么样子的数据放入放到哪个数据库中。
+#          database-strategy:
+#            standard:
+#              shardingColumn: tenantId  # 分片字段（分片键）
+#              preciseAlgorithmClassName: com.shardingjdbc.shardingjdbcstu.algorithm.TenantShardingAlgorithm
+#          # 拆分库策略，也就是什么样子的数据放入放到哪个数据库中。
+#          database-strategy:
+#            inline:  #inline 行表达时分片策略(核心，必须要掌握)
+#              sharding-column: age    # 分片字段（分片键）
+#              algorithm-expression: ds$->{age % 2} # 分片算法表达式
+# 拆分表策略，也就是什么样子的数据放入放到哪个数据表中。
+            # 配置分表规则
+#            table-strategy:
+#              standard:
+#                sharding-column: order_no
+#                sharding-algorithm-name: table-mod
+#          key-generators:
+#            # 此处必须要配置，否则会导致报错，因为shardingsphere-jdbc-core-spring-boot-starter需要加载此项配置，官网的demo例子有错
+#            # 分布式序列算法：https://shardingsphere.apache.org/document/current/cn/user-manual/common-config/builtin-algorithm/keygen/
+#            snowflake:
+#              type: SNOWFLAKE
+#              props:
+#                # 在单机模式下支持用户自定义配置，如果用户不配置使用默认值为0。
+#                # 在集群模式下会由系统自动生成，相同的命名空间下不会生成重复的值。
+#                worker-id: 0
+#            sharding-algorithms:
+#              # 分片算法：https://shardingsphere.apache.org/document/current/cn/user-manual/common-config/builtin-algorithm/sharding/
+#              table-mod:
+#                # 取模类型分片键的值必须是数字，否则会报错
+#                type: MOD
+#                props:
+#                  sharding-count: 10
+#      ds0-slave-rules:
+#        ds0:
+#          ds0-data-source-name: ds0
+#          slave-data-source-names: ds0
+#      tables:
+#        # 自定义表分库分表规则
+#        user:
+#          table-strategy:
+#            inline:
+#              algorithm-expression:
+#                user_$->{id % 3}
+#              # 使用哪一列用作计算分表策略，我们就使用id
+#              sharding-column: id
+#          key-generator:
+#            # 使用雪花算法
+#            type: SNOWFLAKE
+#            # 配置主键生成策略，因为多张表了，id不能在配置数据库自增，需要配置主键生成策略，user表主键名称是id
+#            column: id
+#          # 表名枚举，其中的user是需要分表的表名；ds0.user_$->{0..2} 其中ds0表示数据源名称；user_$->{0..2} 表示从user_0到user_2
+#          actual-data-nodes: ds0.user_$->{0..2}
+
+# Mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.twelvet.**.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/*Mapper.xml

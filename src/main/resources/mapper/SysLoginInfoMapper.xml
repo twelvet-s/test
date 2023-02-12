@@ -30,10 +30,26 @@
         order by id desc
     </select>
 
+    <update id="updateLoginInfo" parameterType="SysLoginInfo">
+        update sys_menu
+        <set>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+        </set>
+        where id = #{id}
+    </update>
+
     <!--插入日志-->
     <insert id="insertLoginInfo" parameterType="SysLoginInfo">
 		insert into sys_login_info (user_name, status, ipaddr, msg, access_time, dept_id)
 		values (#{userName}, #{status}, #{ipaddr}, #{msg}, sysdate(), #{deptId})
 	</insert>
+
+    <!--批量删除登录日志-->
+    <delete id="deleteLoginInfoByIds" parameterType="Long">
+        delete from sys_login_info where info_id in
+        <foreach collection="array" item="infoId" open="(" separator="," close=")">
+            #{infoId}
+        </foreach>
+    </delete>
 
 </mapper>

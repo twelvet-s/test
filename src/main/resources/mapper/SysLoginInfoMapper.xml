@@ -30,6 +30,23 @@
         order by id desc
     </select>
 
+    <!--查询日志列表-->
+    <select id="selectLoginInfoList2" parameterType="SysLoginInfo" resultMap="SysLoginInfoResult">
+        select id, user_name, ipaddr, status, msg, access_time from sys_login_log
+        <where>
+            <if test="ipaddr != null and ipaddr != ''">
+                AND ipaddr like concat('%', #{ipaddr}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="userName != null and userName != ''">
+                AND user_name like concat('%', #{userName}, '%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
     <update id="updateLoginInfo" parameterType="SysLoginInfo">
         update sys_menu
         <set>

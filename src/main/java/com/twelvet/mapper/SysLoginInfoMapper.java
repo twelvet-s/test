@@ -1,5 +1,6 @@
 package com.twelvet.mapper;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.twelvet.domain.SysLoginInfo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +19,16 @@ public interface SysLoginInfoMapper {
 	 * @param loginInfo 访问日志对象
 	 * @return 登录记录集合
 	 */
+	@DS("shardingsphere")
 	List<SysLoginInfo> selectLoginInfoList(SysLoginInfo loginInfo);
+
+	/**
+	 * 查询系统登录日志集合
+	 * @param loginInfo 访问日志对象
+	 * @return 登录记录集合
+	 */
+
+	List<SysLoginInfo> selectLoginInfoList2(SysLoginInfo loginInfo);
 
 	/**
 	 * 批量删除系统登录日志

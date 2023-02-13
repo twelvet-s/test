@@ -19,7 +19,7 @@ public interface SysLoginInfoMapper {
 	 * @param loginInfo 访问日志对象
 	 * @return 登录记录集合
 	 */
-	@DS("shardingsphere")
+	@DS("shardingSphere")
 	List<SysLoginInfo> selectLoginInfoList(SysLoginInfo loginInfo);
 
 	/**

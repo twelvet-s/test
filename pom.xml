@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.8</version>
+		<version>3.0.2</version>
 		<relativePath/>
 	</parent>
 
@@ -43,13 +43,14 @@
 		<twelvet.version>1.0.0</twelvet.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<pagehelper.boot.version>1.4.6</pagehelper.boot.version>
 		<druid.version>1.2.15</druid.version>
 		<dynamic-datasource.version>3.6.1</dynamic-datasource.version>
-		<spring-boot-dependencies.version>2.7.8</spring-boot-dependencies.version>
+		<shardingsphere-jdbc.version>5.3.1</shardingsphere-jdbc.version>
+		<spring-boot-dependencies.version>3.0.2</spring-boot-dependencies.version>
 
 		<docker.plugin.version>0.32.0</docker.plugin.version>
 		<spring.checkstyle.plugin>0.0.32</spring.checkstyle.plugin>
@@ -58,17 +59,18 @@
 
 	<dependencies>
 
-		<dependency>
-			<groupId>org.apache.shardingsphere</groupId>
-			<artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
-			<version>5.2.1</version>
-		</dependency>
-
 		<!--dynamic-->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
 			<version>${dynamic-datasource.version}</version>
+		</dependency>
+
+		<!--Sharding-JDBC-->
+		<dependency>
+			<groupId>org.apache.shardingsphere</groupId>
+			<artifactId>shardingsphere-jdbc-core</artifactId>
+			<version>${shardingsphere-jdbc.version}</version>
 		</dependency>
 
 		<!--druid-->
@@ -102,12 +104,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.yaml</groupId>
-			<artifactId>snakeyaml</artifactId>
-			<version>1.33</version>
 		</dependency>
 
 	</dependencies>

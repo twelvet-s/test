@@ -25,7 +25,7 @@ public class IndexController {
      * 增加数据
      * @return 操作结果
      */
-    @PostMapping
+    @PostMapping("/")
     public JsonResult<String> add(@RequestBody SysLoginInfo sysLoginInfo) {
         sysLoginInfoMapper.insertLoginInfo(sysLoginInfo);
         return JsonResult.success();
@@ -46,13 +46,13 @@ public class IndexController {
      * 修改日志
      * @return 操作结果
      */
-    @PutMapping
+    @PutMapping("/")
     public JsonResult<String> update(@RequestBody SysLoginInfo sysLoginInfo) {
         sysLoginInfoMapper.updateLoginInfo(sysLoginInfo);
         return JsonResult.success();
     }
 
-    @GetMapping
+    @GetMapping("/")
     public JsonResult<TableDataInfo> index(SysLoginInfo sysLoginInfo) {
         PageUtils.startPage();
         List<SysLoginInfo> list = sysLoginInfoMapper.selectLoginInfoList(sysLoginInfo);

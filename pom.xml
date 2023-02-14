@@ -47,7 +47,6 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<pagehelper.boot.version>1.4.6</pagehelper.boot.version>
-		<druid.version>1.2.15</druid.version>
 		<dynamic-datasource.version>3.6.1</dynamic-datasource.version>
 		<shardingsphere-jdbc.version>5.3.1</shardingsphere-jdbc.version>
 		<spring-boot-dependencies.version>3.0.2</spring-boot-dependencies.version>
@@ -71,13 +70,6 @@
 			<groupId>org.apache.shardingsphere</groupId>
 			<artifactId>shardingsphere-jdbc-core</artifactId>
 			<version>${shardingsphere-jdbc.version}</version>
-		</dependency>
-
-		<!--druid-->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>${druid.version}</version>
 		</dependency>
 
 		<!-- pageHelper 分页插件 -->

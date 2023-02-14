@@ -42,7 +42,7 @@ spring:
         # JDBC数据源可以使用注解切换
         shardingSphere:
           driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
-          url: jdbc:shardingsphere:classpath:config.yml
+          url: jdbc:shardingsphere:classpath:sharding-jdbc.yml
             #  shardingsphere:
             #    # 单机模式
             #    mode:

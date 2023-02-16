@@ -18,7 +18,7 @@ dataSources:
     username: root
     password: 123456
 
-# Sharding JDBC配置
+# Sharding JDBC配置 https://shardingsphere.apache.org/document/current/cn/user-manual/shardingsphere-jdbc/yaml-config/rules/sharding/#%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83
 rules:
   - !SHARDING
     tables:
@@ -26,6 +26,37 @@ rules:
       sys_login_info:
         # 数据节点：数据源$->{0..N}.逻辑表名$->{0..N}
         actualDataNodes: ds$->{0..0}.sys_login_info_$->{0..1}
+        # 分表策略，同分库策略,数据分布策略
+        tableStrategy:
+          standard:
+            # 分片算法名称
+            shardingColumn: id
+            # 分片算法名称
+            shardingAlgorithmName: twelvet-inline
+        # 分布式序列策略
+        keyGenerateStrategy:
+          # 自增列名称，缺省表示不使用自增主键生成器
+          column: id
+          # 分布式序列算法名称
+          keyGeneratorName: twelvet-snowflake
+    # 分片算法配置，如何分片到哪个表哪个库
+    shardingAlgorithms:
+      twelvet-inline:
+        # 分片算法类型
+        type: INLINE
+        # 分片算法属性配置
+        props:
+          algorithm-expression: sys_login_info_$->{id % 2}
+          allow-range-query-with-inline-sharding: true
+    # 分布式序列算法配置，主键ID如何生成
+    keyGenerators:
+      twelvet-snowflake:
+        # 分布式序列算法类型
+        type: SNOWFLAKE
+        # 分布式序列算法属性配置
+        props:
+          max-vibration-offset: 1
+          max-tolerate-time-difference-milliseconds: 10
 mode:
   # 单机运行
   type: Standalone

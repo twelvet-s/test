@@ -17,6 +17,9 @@
     <select id="selectLoginInfoList" parameterType="SysLoginInfo" resultMap="SysLoginInfoResult">
         select id, user_name, ipaddr, status, msg, access_time from sys_login_info
         <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
             <if test="ipaddr != null and ipaddr != ''">
                 AND ipaddr like concat('%', #{ipaddr}, '%')
             </if>

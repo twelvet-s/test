@@ -18,7 +18,7 @@ spring:
         # 连接超时时间:毫秒，小于250毫秒，否则被重置为默认值30秒
         connection-timeout: 60000
       # 设置默认的数据源或者数据源组,默认值即为master
-      primary: master
+      primary: shardingSphere
       datasource:
         # 主库数据源
         master:

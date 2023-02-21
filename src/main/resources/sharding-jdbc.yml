@@ -29,7 +29,7 @@ rules:
         # 分表策略，同分库策略,数据分布策略
         tableStrategy:
           standard:
-            # 分片算法名称
+            # 分片算法ID
             shardingColumn: id
             # 分片算法名称
             shardingAlgorithmName: twelvet-hash-mod

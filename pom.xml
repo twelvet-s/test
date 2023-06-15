@@ -3,13 +3,6 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.0</version>
-		<relativePath/>
-	</parent>
-
 	<groupId>com.twelvet</groupId>
 	<artifactId>spring-boot-sharding</artifactId>
 	<version>1.0.0</version>
@@ -56,6 +49,19 @@
 		<git.commit.plugin>4.9.9</git.commit.plugin>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<!-- SpringBoot 依赖配置 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 
 		<!--dynamic-->
@@ -101,7 +107,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
-			<version>3.1.0</version>
 		</dependency>
 
 	</dependencies>

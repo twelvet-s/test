@@ -2,6 +2,27 @@ server:
   port: 8050
 
 spring:
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          oidc-client:
+            registration:
+              client-id: "oidc-client"
+              client-secret: "{noop}secret"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://127.0.0.1:8080/login/oauth2/code/oidc-client"
+              post-logout-redirect-uris:
+                - "http://127.0.0.1:8080/"
+              scopes:
+                - "openid"
+                - "profile"
+            require-authorization-consent: true
   datasource:
     dynamic:
       hikari:
@@ -86,7 +107,7 @@ spring:
             #            inline:  #inline 行表达时分片策略(核心，必须要掌握)
             #              sharding-column: age    # 分片字段（分片键）
             #              algorithm-expression: ds$->{age % 2} # 分片算法表达式
-            # 拆分表策略，也就是什么样子的数据放入放到哪个数据表中。
+          # 拆分表策略，也就是什么样子的数据放入放到哪个数据表中。
           # 配置分表规则
 #            table-strategy:
 #              standard:

@@ -54,9 +54,9 @@ public class IndexController {
 
     @GetMapping("/")
     public JsonResult<TableDataInfo> index(SysLoginInfo sysLoginInfo) {
-        PageUtils.startPage();
-        List<SysLoginInfo> list = sysLoginInfoMapper.selectLoginInfoList(sysLoginInfo);
-        return JsonResult.success(PageUtils.getDataTable(list));
+        /*PageUtils.startPage();
+        List<SysLoginInfo> list = sysLoginInfoMapper.selectLoginInfoList(sysLoginInfo);*/
+        return JsonResult.success();
     }
 
     @GetMapping("/index2")
